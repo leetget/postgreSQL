@@ -2,11 +2,11 @@
 
 update prod
 set price = price * 2
-where id IN(
-	select sales.prod_id
-	from sales
-	join dep on sales.dep_id = dep.id
-	where dep.name = 'dep10' and extract(year from sales.time)= 2018
-);
+from sales
+join dep on sales.dep_id = dep.id
+where dep.name = 'dep10' and extract(year from sales.time)= 2018
+
 -- думал насчет добавления блока DO, но посчитал, что будет неуместно его использовать, 
 -- так как нет сложной логики(проверки условий перед обновлением, изолированности выполнения и тд)
+
+-- так же предпочел использовать join вместо подзапроса для получения лучшей производительности и читаемости кода
